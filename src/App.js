@@ -1,9 +1,10 @@
 import React from "react";
+import Main from "./layout/Main";
 
 function App() {
   return (
-    <div>
-      <button class="btn">Button</button>
+    <div className=" px-2 lg:mx-20">
+      <Main />
     </div>
   );
 }
