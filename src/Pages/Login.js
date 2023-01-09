@@ -1,17 +1,23 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from "react";
+import { useForm, useWatch } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import pic from "../images/login-image.svg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../features/auth/authSlice";
 
 const Login = () => {
+  //
+  const { isLoading, user } = useSelector((state) => state.auth);
   const {
     register,
     handleSubmit,
     watch,
+    control,
     formState: { errors },
   } = useForm();
+  const email = useWatch({ control, name: "email" });
+  const password = useWatch({ control, name: "password" });
+  const [disabled, setDisable] = useState(true);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -19,10 +25,33 @@ const Login = () => {
   const input =
     "border py-[6px] px-2 my-1 rounded border-gray-400 w-full focus:outline-0";
 
+  //disable
+  useEffect(() => {
+    if (
+      email !== undefined &&
+      email !== "" &&
+      password !== undefined &&
+      password !== ""
+    ) {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  }, [email, password]);
+
+  //navigate
+  useEffect(() => {
+    if (!isLoading && user.email) {
+      navigate("/");
+    }
+  }, [isLoading, user, navigate]);
+
+  //login
   const onSubmit = (data) => {
     console.log(data);
     dispatch(loginUser({ email: data.email, password: data.password }));
   };
+
   return (
     <div className=" grid grid-cols-2 items-center justify-center">
       <div className=" flex-1">
@@ -63,7 +92,8 @@ const Login = () => {
               <div className="relative !mt-5">
                 <button
                   type="submit"
-                  className="font-bold text-white py-3 rounded-full bg-primary w-full"
+                  className="font-bold text-white py-3 rounded-full bg-primary w-full disabled:bg-gray-300 disabled:cursor-not-allowed"
+                  disabled={disabled}
                 >
                   Login
                 </button>

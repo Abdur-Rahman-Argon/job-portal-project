@@ -2,11 +2,25 @@ import React from "react";
 import auth from "../firebase.init";
 import logo from "../images/logo.png";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { signOut } from "firebase/auth";
+import { logout } from "../features/auth/authSlice";
 
 const Navbar = () => {
   const user = useSelector((state) => state.auth.user.email);
   console.log(user);
+
+  const dispatch = useDispatch();
+
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        dispatch(logout());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const navContent = (
     <>
@@ -17,9 +31,7 @@ const Navbar = () => {
         <Link to="/">Jobs</Link>
       </li>
       {user ? (
-        <li>
-          <button>LogOut</button>
-        </li>
+        <button onClick={handleSignOut}>LogOut</button>
       ) : (
         <li>
           <Link to="/login">LogIn</Link>
