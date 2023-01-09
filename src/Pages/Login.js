@@ -14,12 +14,14 @@ const Login = () => {
   } = useForm();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const input =
     "border py-[6px] px-2 my-1 rounded border-gray-400 w-full focus:outline-0";
 
   const onSubmit = (data) => {
     console.log(data);
+    dispatch(loginUser({ email: data.email, password: data.password }));
   };
   return (
     <div className=" grid grid-cols-2 items-center justify-center">
