@@ -1,6 +1,7 @@
 import React from "react";
 import auth from "../firebase.init";
 import logo from "../images/logo.png";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const user = false;
@@ -8,10 +9,10 @@ const Navbar = () => {
   const navContent = (
     <>
       <li>
-        <a>Home</a>
+        <Link to="/">Home</Link>
       </li>
       <li>
-        <a>Jobs</a>
+        <Link to="/">Jobs</Link>
       </li>
       {user ? (
         <li>
@@ -19,7 +20,7 @@ const Navbar = () => {
         </li>
       ) : (
         <li>
-          <a>LogIn</a>
+          <Link to="/login">LogIn</Link>
         </li>
       )}
     </>
@@ -29,14 +30,14 @@ const Navbar = () => {
     <div>
       <div className="navbar px-10  bg-emerald-200">
         <div className="navbar-start">
-          <a href="/" className="btn btn-ghost normal-case text-lg">
+          <Link to="/" href="/" className="btn btn-ghost normal-case text-lg">
             <div className=" flex items-center gap-1  justify-center">
               <img src={logo} alt="" className=" w-8" />
               <span className=" uppercase tittle text-slate-600">
                 Job Point
               </span>
             </div>
-          </a>
+          </Link>
         </div>
         <div className="navbar-end ">
           <div className="hidden lg:flex">
