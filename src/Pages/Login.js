@@ -2,6 +2,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import pic from "../images/login-image.svg";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../features/auth/authSlice";
 
 const Login = () => {
   const {
@@ -14,9 +16,11 @@ const Login = () => {
   const navigate = useNavigate();
 
   const input =
-    "  border py-[6px] px-2 my-1 rounded border-gray-400 w-full focus:outline-0";
+    "border py-[6px] px-2 my-1 rounded border-gray-400 w-full focus:outline-0";
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log(data);
+  };
   return (
     <div className=" grid grid-cols-2 items-center justify-center">
       <div className=" flex-1">

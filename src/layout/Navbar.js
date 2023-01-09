@@ -2,9 +2,11 @@ import React from "react";
 import auth from "../firebase.init";
 import logo from "../images/logo.png";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  const user = false;
+  const user = useSelector((state) => state.auth.user.email);
+  console.log(user);
 
   const navContent = (
     <>
