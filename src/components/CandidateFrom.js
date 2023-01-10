@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm, useWatch } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useRegisterMutation } from "../features/auth/authApi";
+import Loading from "../shared/Loading";
 
 const CandidateFrom = () => {
   const [countries, setCountries] = useState([]);
@@ -19,12 +20,16 @@ const CandidateFrom = () => {
       .then((data) => setCountries(data));
   }, []);
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   const input =
     "border py-[6px] px-2 my-1 rounded-lg border-gray-400 w-full focus:outline-0";
 
   const onSubmit = (data) => {
     console.log(data);
-    postUser({ ...data, role: "Candidates" });
+    postUser({ ...data, role: "candidates" });
   };
 
   return (
