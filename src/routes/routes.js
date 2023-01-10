@@ -4,6 +4,9 @@ import SignUp from "../Pages/SignUp";
 import Main from "../layout/Main";
 import { createBrowserRouter } from "react-router-dom";
 import PrivetRoute from "../shared/PrivetRoute";
+import Register from "../components/Register";
+import CandidateFrom from "../components/CandidateFrom";
+import EmployFrom from "../components/EmployFrom";
 
 const routes = createBrowserRouter([
   {
@@ -26,7 +29,23 @@ const routes = createBrowserRouter([
         path: "/register",
         element: (
           <PrivetRoute>
-            <SignUp />
+            <Register />
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "/employ",
+        element: (
+          <PrivetRoute>
+            <EmployFrom />
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "/candidate",
+        element: (
+          <PrivetRoute>
+            <CandidateFrom />
           </PrivetRoute>
         ),
       },

@@ -7,8 +7,7 @@ import { signOut } from "firebase/auth";
 import { logout } from "../features/auth/authSlice";
 
 const Navbar = () => {
-  const user = useSelector((state) => state.auth.user.email);
-  console.log(user);
+  const { email, role } = useSelector((state) => state.auth.user);
 
   const dispatch = useDispatch();
 
@@ -30,8 +29,23 @@ const Navbar = () => {
       <li>
         <Link to="/">Jobs</Link>
       </li>
-      {user ? (
-        <button onClick={handleSignOut}>LogOut</button>
+
+      {email && !role && (
+        <li>
+          <Link to="/register">Register</Link>
+        </li>
+      )}
+
+      {email && role && (
+        <li>
+          <Link to="/dashboard">DashBoard</Link>
+        </li>
+      )}
+
+      {email ? (
+        <button className=" uppercase" onClick={handleSignOut}>
+          LogOut
+        </button>
       ) : (
         <li>
           <Link to="/login">LogIn</Link>
@@ -42,7 +56,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <div className="navbar px-10  bg-emerald-200">
+      <div className="navbar px-10  bg-emerald-300">
         <div className="navbar-start">
           <Link to="/" href="/" className="btn btn-ghost normal-case text-lg">
             <div className=" flex items-center gap-[6px]  justify-center">

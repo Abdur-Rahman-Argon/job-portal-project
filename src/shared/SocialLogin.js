@@ -25,17 +25,17 @@ const SocialLogin = () => {
         onClick={handleGoogleLogin}
         className="flex justify-around uppercase text-lg  font-bold  text-gray-700 py-3 rounded-full bg-orange-200  px-10 w-full "
       >
-        <i class="fa-brands fa-google text-red-700 text-3xl"></i>{" "}
+        <i className="fa-brands fa-google text-red-700 text-3xl"></i>{" "}
         <span> SignIn With Google</span>
       </button>
 
       <button className="flex justify-around uppercase text-lg  font-bold text-gray-700 py-3 rounded-full bg-orange-200 px-10 w-full ">
-        <i class="fa-brands fa-facebook text-blue-700 text-3xl"></i>{" "}
+        <i className="fa-brands fa-facebook text-blue-700 text-3xl"></i>{" "}
         <span> SignIn With FaceBook</span>
       </button>
 
       <button className="flex justify-around uppercase text-lg  font-bold text-gray-700 py-3 rounded-full bg-orange-200 px-10 w-full ">
-        <i class="fa-brands fa-github text-black text-3xl"></i>
+        <i className="fa-brands fa-github text-black text-3xl"></i>
         <span> SignIn With GitHub</span>
       </button>
     </div>
