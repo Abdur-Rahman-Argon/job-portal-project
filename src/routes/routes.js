@@ -1,13 +1,14 @@
 import Home from "../Pages/Home";
 import Login from "../Pages/Login";
 import SignUp from "../Pages/SignUp";
-import Main from "../layout/Main";
+import Main from "../layout/Main/Main";
 import { createBrowserRouter } from "react-router-dom";
 import PrivetRoute from "../shared/PrivetRoute";
 import Register from "../components/Register";
 import CandidateFrom from "../components/CandidateFrom";
 import EmployFrom from "../components/EmployFrom";
-import Dashboard from "../Pages/Dashboard";
+import Dashboard from "../layout/Dashboard/Dashboard";
+import AddJob from "../Pages/EmployDashboard/AddJob";
 
 const routes = createBrowserRouter([
   {
@@ -57,6 +58,16 @@ const routes = createBrowserRouter([
             <Dashboard />
           </PrivetRoute>
         ),
+        children: [
+          {
+            path: "add-jobs",
+            element: (
+              <PrivetRoute>
+                <AddJob />
+              </PrivetRoute>
+            ),
+          },
+        ],
       },
     ],
   },

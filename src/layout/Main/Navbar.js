@@ -1,10 +1,10 @@
 import React from "react";
-import auth from "../firebase.init";
-import logo from "../images/logo.png";
+import auth from "../../firebase.init";
+import logo from "../../images/logo.png";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "firebase/auth";
-import { logout } from "../features/auth/authSlice";
+import { logout } from "../../features/auth/authSlice";
 
 const Navbar = () => {
   const { email, role } = useSelector((state) => state.auth.user);
