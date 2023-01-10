@@ -9,6 +9,7 @@ import CandidateFrom from "../components/CandidateFrom";
 import EmployFrom from "../components/EmployFrom";
 import Dashboard from "../layout/Dashboard/Dashboard";
 import AddJob from "../Pages/EmployDashboard/AddJob";
+import JobDetails from "../components/JobDetails";
 
 const routes = createBrowserRouter([
   {
@@ -40,6 +41,14 @@ const routes = createBrowserRouter([
         element: (
           <PrivetRoute>
             <EmployFrom />
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "/job-details/:id",
+        element: (
+          <PrivetRoute>
+            <JobDetails />
           </PrivetRoute>
         ),
       },

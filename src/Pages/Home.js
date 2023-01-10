@@ -1,9 +1,17 @@
 import React from "react";
+import { useGetJobQuery } from "../features/job/jobApi";
+import JobCard from "../components/JobCard";
 
 const Home = () => {
+  const { isError, data, isLoading, error } = useGetJobQuery();
+
   return (
     <div>
-      <h1>present</h1>
+      <div className=" grid grid-cols-1 lg:grid-cols-2 my-9">
+        {data?.data?.map((job) => (
+          <JobCard key={job._id} jobData={job}></JobCard>
+        ))}
+      </div>
     </div>
   );
 };
