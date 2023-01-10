@@ -4,10 +4,14 @@ import { useNavigate } from "react-router-dom";
 import pic from "../images/login-image.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../features/auth/authSlice";
+import SocialLogin from "../shared/SocialLogin";
 
 const Login = () => {
   //
-  const { isLoading, user } = useSelector((state) => state.auth);
+
+  const { isLoading, user, isError, error } = useSelector(
+    (state) => state.auth
+  );
   const {
     register,
     handleSubmit,
@@ -89,6 +93,9 @@ const Login = () => {
                   {...register("password")}
                 />
               </div>
+              {isError && (
+                <p className=" ml-5 font-semibold text-red-500">{error}</p>
+              )}
               <div className="relative !mt-5">
                 <button
                   type="submit"
@@ -99,7 +106,7 @@ const Login = () => {
                 </button>
               </div>
               <div>
-                <p className=" ml-5">
+                <p className=" ml-5 my-5">
                   Don't have an account?{" "}
                   <span
                     className="text-primary hover:underline cursor-pointer"
@@ -111,6 +118,9 @@ const Login = () => {
               </div>
             </div>
           </form>
+          <div>
+            <SocialLogin />
+          </div>
         </div>
       </div>
     </div>

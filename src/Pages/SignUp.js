@@ -4,6 +4,7 @@ import pic from "../images/login-image.svg";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../features/auth/authSlice";
+import SocialLogin from "../shared/SocialLogin";
 
 const SignUp = () => {
   const { handleSubmit, register, reset, control } = useForm();
@@ -11,7 +12,9 @@ const SignUp = () => {
   const confirmPassword = useWatch({ control, name: "confirmPassword" });
   const navigate = useNavigate();
   const [disabled, setDisabled] = useState(true);
-  const { isLoading, user } = useSelector((state) => state.auth);
+  const { isLoading, user, isError, error } = useSelector(
+    (state) => state.auth
+  );
 
   useEffect(() => {
     if (
@@ -93,6 +96,9 @@ const SignUp = () => {
                   className={`${input}`}
                 />
               </div>
+              {isError && (
+                <p className=" ml-5 font-semibold text-red-500">{error}</p>
+              )}
               <div className="!mt-8 ">
                 <button
                   type="submit"
@@ -103,7 +109,7 @@ const SignUp = () => {
                 </button>
               </div>
               <div>
-                <p>
+                <p className=" my-5 ml-5">
                   Already have an account?{" "}
                   <span
                     className="text-primary hover:underline cursor-pointer"
@@ -115,6 +121,9 @@ const SignUp = () => {
               </div>
             </div>
           </form>
+          <div>
+            <SocialLogin />
+          </div>
         </div>
       </div>
     </div>

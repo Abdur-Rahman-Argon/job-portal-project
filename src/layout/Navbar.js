@@ -45,9 +45,9 @@ const Navbar = () => {
       <div className="navbar px-10  bg-emerald-200">
         <div className="navbar-start">
           <Link to="/" href="/" className="btn btn-ghost normal-case text-lg">
-            <div className=" flex items-center gap-1  justify-center">
-              <img src={logo} alt="" className=" w-8" />
-              <span className=" uppercase tittle text-slate-600">
+            <div className=" flex items-center gap-[6px]  justify-center">
+              <img src={logo} alt="" className=" w-7" />
+              <span className="mt-1 uppercase tittle text-yellow-500">
                 Job Point
               </span>
             </div>

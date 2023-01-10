@@ -3,6 +3,7 @@ import Login from "../Pages/Login";
 import SignUp from "../Pages/SignUp";
 import Main from "../layout/Main";
 import { createBrowserRouter } from "react-router-dom";
+import PrivetRoute from "../shared/PrivetRoute";
 
 const routes = createBrowserRouter([
   {
@@ -20,6 +21,14 @@ const routes = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp />,
+      },
+      {
+        path: "/register",
+        element: (
+          <PrivetRoute>
+            <SignUp />
+          </PrivetRoute>
+        ),
       },
     ],
   },
