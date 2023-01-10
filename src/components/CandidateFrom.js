@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, useWatch } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { useRegisterMutation } from "../features/auth/authApi";
 
 const CandidateFrom = () => {
   const [countries, setCountries] = useState([]);
@@ -8,6 +10,8 @@ const CandidateFrom = () => {
   const term = useWatch({ control, name: "term" });
   console.log(term);
   const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
+  const [postUser, { isError, isLoading }] = useRegisterMutation();
 
   useEffect(() => {
     fetch("https://restcountries.com/v3.1/all")
@@ -20,6 +24,7 @@ const CandidateFrom = () => {
 
   const onSubmit = (data) => {
     console.log(data);
+    postUser({ ...data, role: "Candidates" });
   };
 
   return (
@@ -69,6 +74,7 @@ const CandidateFrom = () => {
               className={`${input}`}
               type="email"
               id="email"
+              value={user.email}
               {...register("email")}
             />
           </div>

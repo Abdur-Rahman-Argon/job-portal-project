@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, useWatch } from "react-hook-form";
+import { useRegisterMutation } from "../features/auth/authApi";
+import { useSelector } from "react-redux";
 
 const EmployFrom = () => {
   const [countries, setCountries] = useState([]);
@@ -8,6 +10,9 @@ const EmployFrom = () => {
   const { handleSubmit, register, control } = useForm();
   const term = useWatch({ control, name: "term" });
   const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
+
+  const [postUser, { isError, isLoading }] = useRegisterMutation();
 
   const businessCategory = [
     "Automotive",
@@ -43,6 +48,7 @@ const EmployFrom = () => {
 
   const onSubmit = (data) => {
     console.log(data);
+    // postUser({ ...data, role: "Candidates" });
   };
 
   return (
@@ -93,6 +99,7 @@ const EmployFrom = () => {
               className={`${input}`}
               type="email"
               id="email"
+              value={user.email}
               disabled
               {...register("email")}
             />
