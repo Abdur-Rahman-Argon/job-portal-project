@@ -4,7 +4,7 @@ import routes from "./routes/routes";
 import { RouterProvider } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
-import { exitsUser, logout } from "./features/auth/authSlice";
+import { exitsUser, getUser, logout } from "./features/auth/authSlice";
 import auth from "./firebase.init";
 
 function App() {
@@ -12,8 +12,9 @@ function App() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        dispatch(exitsUser(user));
-        console.log(user);
+        // dispatch(exitsUser(user));
+        dispatch(getUser(user.email));
+        console.log(user.email);
       } else {
         dispatch(logout());
       }

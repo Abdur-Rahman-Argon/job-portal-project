@@ -13,7 +13,7 @@ const EmployFrom = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
 
-  const [postUser, { isError, isLoading }] = useRegisterMutation();
+  const [postUser, { isError, isLoading, isSuccess }] = useRegisterMutation();
 
   const businessCategory = [
     "Automotive",
@@ -43,6 +43,13 @@ const EmployFrom = () => {
       .then((res) => res.json())
       .then((data) => setCountries(data));
   }, []);
+
+  //navigate
+  useEffect(() => {
+    if (!isLoading && !isError && isSuccess) {
+      navigate("/dashboard");
+    }
+  }, [isLoading, isSuccess, isError, navigate]);
 
   if (isLoading) {
     return <Loading />;
@@ -105,8 +112,8 @@ const EmployFrom = () => {
               type="email"
               id="email"
               value={user.email}
-              disabled
               {...register("email")}
+              readOnly
             />
           </div>
           <div className="flex flex-col w-full max-w-xs">

@@ -7,6 +7,7 @@ import PrivetRoute from "../shared/PrivetRoute";
 import Register from "../components/Register";
 import CandidateFrom from "../components/CandidateFrom";
 import EmployFrom from "../components/EmployFrom";
+import Dashboard from "../Pages/Dashboard";
 
 const routes = createBrowserRouter([
   {
@@ -46,6 +47,14 @@ const routes = createBrowserRouter([
         element: (
           <PrivetRoute>
             <CandidateFrom />
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "/dashboard",
+        element: (
+          <PrivetRoute>
+            <Dashboard />
           </PrivetRoute>
         ),
       },

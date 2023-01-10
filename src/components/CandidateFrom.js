@@ -12,13 +12,20 @@ const CandidateFrom = () => {
   console.log(term);
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
-  const [postUser, { isError, isLoading }] = useRegisterMutation();
+  const [postUser, { isError, isLoading, isSuccess }] = useRegisterMutation();
 
   useEffect(() => {
     fetch("https://restcountries.com/v3.1/all")
       .then((res) => res.json())
       .then((data) => setCountries(data));
   }, []);
+
+  //navigate
+  useEffect(() => {
+    if (!isLoading && !isError && isSuccess) {
+      navigate("/dashboard");
+    }
+  }, [isLoading, isSuccess, isError, navigate]);
 
   if (isLoading) {
     return <Loading />;
@@ -81,6 +88,7 @@ const CandidateFrom = () => {
               id="email"
               value={user.email}
               {...register("email")}
+              readOnly
             />
           </div>
           <div className="flex flex-col w-full max-w-xs">
