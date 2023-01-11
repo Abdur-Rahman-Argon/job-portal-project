@@ -41,7 +41,7 @@ const jobApi = apiSlice.injectEndpoints({
     //createAskQuestion
     createAskQuestion: builder.mutation({
       query: (data) => ({
-        url: `/ask-question/${data.id}`,
+        url: `/ask-question`,
         method: "PATCH",
         body: data,
       }),

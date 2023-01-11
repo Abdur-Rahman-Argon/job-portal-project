@@ -1,13 +1,20 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useApplyMutation, useGetJobByIdQuery } from "../features/job/jobApi";
+import {
+  useApplyMutation,
+  useCreateAskQuestionMutation,
+  useGetJobByIdQuery,
+} from "../features/job/jobApi";
 import { useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
 
 const JobDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { handleSubmit, register, reset } = useForm();
   const user = useSelector((state) => state.auth.user);
   const [apply, { isSuccess }] = useApplyMutation();
+  const [askQuestion, {}] = useCreateAskQuestionMutation();
 
   const { data, isError, isLoading, error } = useGetJobByIdQuery(id);
   //   console.log(data);
@@ -47,6 +54,18 @@ const JobDetails = () => {
     };
     apply(data);
     // console.log(data);
+  };
+
+  const onSubmit = (data) => {
+    const quesData = {
+      ...data,
+      userId: user._id,
+      jobId: _id,
+      email: user.email,
+    };
+    askQuestion(quesData);
+    console.log(data);
+    reset();
   };
 
   return (
@@ -128,28 +147,41 @@ const JobDetails = () => {
                     </p>
                   ))}
 
-                  <div className="flex gap-3 my-5">
-                    <input placeholder="Reply" type="text" className="w-full" />
-                    <button
-                      className="shrink-0 h-14 w-14 bg-primary/10 border border-primary hover:bg-primary rounded-full transition-all  grid place-items-center text-primary hover:text-white"
-                      type="button"
-                    ></button>
-                  </div>
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="flex gap-3 my-5">
+                      <input
+                        placeholder="Reply"
+                        type="text"
+                        {...register("answer")}
+                        className="border py-[6px] px-2 my-1 rounded-lg border-gray-400 w-full focus:outline-0"
+                      />
+                      <button
+                        type="submit"
+                        className="shrink-0 h-14 w-14 bg-primary/10 border border-primary hover:bg-primary rounded-full transition-all  grid place-items-center text-primary hover:text-white"
+                      >
+                        send
+                      </button>
+                    </div>
+                  </form>
                 </div>
               ))}
             </div>
-
-            <div className="flex gap-3 my-5">
-              <input
-                placeholder="Ask a question..."
-                type="text"
-                className="w-full"
-              />
-              <button
-                className="shrink-0 h-14 w-14 bg-primary/10 border border-primary hover:bg-primary rounded-full transition-all  grid place-items-center text-primary hover:text-white"
-                type="button"
-              ></button>
-            </div>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="flex gap-3 my-5">
+                <input
+                  placeholder="Ask a question..."
+                  type="text"
+                  {...register("question")}
+                  className="border py-[6px] px-2 my-1 rounded-lg border-gray-400 w-full focus:outline-0"
+                />
+                <button
+                  className="shrink-0 h-14 w-14 bg-primary/10 border border-primary hover:bg-primary rounded-full transition-all  grid place-items-center text-primary hover:text-white"
+                  type="submit"
+                >
+                  <i class="fa-solid fa-paper-plane"></i>
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
