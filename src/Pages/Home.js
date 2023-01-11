@@ -7,7 +7,7 @@ const Home = () => {
 
   return (
     <div>
-      <div className=" grid grid-cols-1 lg:grid-cols-2 my-9">
+      <div className=" px-10 grid grid-cols-1 lg:grid-cols-2 gap-5 my-9">
         {data?.data?.map((job) => (
           <JobCard key={job._id} jobData={job}></JobCard>
         ))}

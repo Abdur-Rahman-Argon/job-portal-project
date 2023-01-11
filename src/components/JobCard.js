@@ -1,10 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const JobCard = ({ jobData }) => {
   const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
   const { _id, position, companyName, location, employmentType } =
     jobData || {};
+
+  //   console.log(user.role);
 
   return (
     <div

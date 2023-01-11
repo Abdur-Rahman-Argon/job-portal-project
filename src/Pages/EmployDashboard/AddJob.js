@@ -26,7 +26,7 @@ const AddJob = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    jopPost({ ...data, applicant: [], queries: [] });
+    jopPost({ ...data, applicants: [], queries: [] });
   };
 
   return (

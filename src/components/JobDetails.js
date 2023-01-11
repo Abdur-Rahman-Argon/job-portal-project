@@ -1,12 +1,15 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useGetJobByIdQuery } from "../features/job/jobApi";
+import { useApplyMutation, useGetJobByIdQuery } from "../features/job/jobApi";
+import { useSelector } from "react-redux";
 
 const JobDetails = () => {
   const { id } = useParams();
+  const user = useSelector((state) => state.auth.user);
+  const [apply, { isSuccess }] = useApplyMutation();
 
   const { data, isError, isLoading, error } = useGetJobByIdQuery(id);
-  console.log(data);
+  //   console.log(data);
   const {
     companyName,
     position,
@@ -21,24 +24,47 @@ const JobDetails = () => {
     overview,
     queries,
     _id,
-  } = {};
+  } = data?.data || {};
+
+  const applied = data?.data?.applicants?.find((ap) => ap.id === user._id);
+  console.log(applied);
+
+  const handleApply = () => {
+    const data = {
+      userId: user._id,
+      jobId: _id,
+      email: user.email,
+    };
+    apply(data);
+    // console.log(data);
+  };
 
   return (
     <div className="pt-14 grid grid-cols-12 gap-5">
       <div className="col-span-9 mb-10">
         <div className="h-80 rounded-xl overflow-hidden">
-          <img className="h-full w-full object-cover" src={"meeting"} alt="" />
+          {/* <img className="h-full w-full object-cover" src={"meeting"} alt="" /> */}
         </div>
         <div className="space-y-5">
           <div className="flex justify-between items-center mt-5">
-            <h1 className="text-xl font-semibold text-primary">
-              {data?.data?.position}
-            </h1>
-            <button className="btn">Apply</button>
+            <h1 className="text-xl font-semibold text-primary">{position}</h1>
+            {applied ? (
+              <button disabled className="btn">
+                All Ready Applied
+              </button>
+            ) : (
+              <button
+                disabled={!user?.role}
+                onClick={handleApply}
+                className="btn"
+              >
+                Apply
+              </button>
+            )}
           </div>
           <div>
             <h1 className="text-primary text-lg font-medium mb-3">Overview</h1>
-            <p>{data?.data?.overview}</p>
+            <p>{overview}</p>
           </div>
           <div>
             <h1 className="text-primary text-lg font-medium mb-3">Skills</h1>
@@ -84,8 +110,8 @@ const JobDetails = () => {
             <div className="text-primary my-2">
               {queries?.map(({ question, email, reply, id }) => (
                 <div>
-                  <small>{data?.data?.email}</small>
-                  <p className="text-lg font-medium">{data?.data?.question}</p>
+                  <small>{email}</small>
+                  <p className="text-lg font-medium">{question}</p>
                   {reply?.map((item) => (
                     <p className="flex items-center gap-2 relative left-5">
                       {item}
@@ -121,30 +147,28 @@ const JobDetails = () => {
         <div className="rounded-xl bg-primary/10 p-5 text-primary space-y-5">
           <div>
             <p>Experience</p>
-            <h1 className="font-semibold text-lg">{data?.data?.experience}</h1>
+            <h1 className="font-semibold text-lg">{experience}</h1>
           </div>
           <div>
             <p>Work Level</p>
-            <h1 className="font-semibold text-lg">{data?.data?.workLevel}</h1>
+            <h1 className="font-semibold text-lg">{workLevel}</h1>
           </div>
           <div>
             <p>Employment Type</p>
-            <h1 className="font-semibold text-lg">
-              {data?.data?.employmentType}
-            </h1>
+            <h1 className="font-semibold text-lg">{employmentType}</h1>
           </div>
           <div>
             <p>Salary Range</p>
-            <h1 className="font-semibold text-lg">{data?.data?.salaryRange}</h1>
+            <h1 className="font-semibold text-lg">{salaryRange}</h1>
           </div>
           <div>
             <p>Location</p>
-            <h1 className="font-semibold text-lg">{data?.data?.location}</h1>
+            <h1 className="font-semibold text-lg">{location}</h1>
           </div>
         </div>
         <div className="mt-5 rounded-xl bg-primary/10 p-5 text-primary space-y-5">
           <div>
-            <h1 className="font-semibold text-lg">{data?.data?.companyName}</h1>
+            <h1 className="font-semibold text-lg">{companyName}</h1>
           </div>
           <div>
             <p>Company Size</p>
