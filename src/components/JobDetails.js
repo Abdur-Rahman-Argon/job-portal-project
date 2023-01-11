@@ -1,22 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   useApplyMutation,
   useCreateAskQuestionMutation,
+  useCreateQueAnswerMutation,
   useGetJobByIdQuery,
 } from "../features/job/jobApi";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 
 const JobDetails = () => {
+  const [reply, setReply] = useState();
   const { id } = useParams();
   const navigate = useNavigate();
   const { handleSubmit, register, reset } = useForm();
   const user = useSelector((state) => state.auth.user);
   const [apply, { isSuccess }] = useApplyMutation();
   const [askQuestion, {}] = useCreateAskQuestionMutation();
+  const [queReply, {}] = useCreateQueAnswerMutation();
 
-  const { data, isError, isLoading, error } = useGetJobByIdQuery(id);
+  const { data, isError, isLoading, error } = useGetJobByIdQuery(id, {
+    pollingInterval: 500,
+  });
   //   console.log(data);
   const {
     companyName,
@@ -35,7 +40,6 @@ const JobDetails = () => {
   } = data?.data || {};
 
   const applied = data?.data?.applicants?.find((ap) => ap.id === user._id);
-  console.log(applied);
 
   const handleApply = () => {
     if (user.role === "employer") {
@@ -64,7 +68,17 @@ const JobDetails = () => {
       email: user.email,
     };
     askQuestion(quesData);
-    console.log(data);
+    // console.log(data);
+    reset();
+  };
+
+  const replaySubmit = (id) => {
+    const quesData = {
+      reply: reply,
+      userId: id,
+    };
+    queReply(quesData);
+    // console.log(quesData);
     reset();
   };
 
@@ -139,49 +153,58 @@ const JobDetails = () => {
             <div className="text-primary my-2">
               {queries?.map(({ question, email, reply, id }) => (
                 <div>
+                  <small>
+                    <i class="fa-solid fa-hand-point-right"></i>
+                  </small>{" "}
                   <small>{email}</small>
-                  <p className="text-lg font-medium">{question}</p>
+                  <p className="text-lg flex items-center gap-1 font-medium">
+                    {" "}
+                    <i class="fa-brands fa-quora"></i> : <span>{question}</span>
+                  </p>
                   {reply?.map((item) => (
                     <p className="flex items-center gap-2 relative left-5">
-                      {item}
+                      <i class="fa-solid fa-arrow-right"></i> {item}
                     </p>
                   ))}
-
-                  <form onSubmit={handleSubmit(onSubmit)}>
+                  {user.role === "employer" && (
                     <div className="flex gap-3 my-5">
                       <input
                         placeholder="Reply"
                         type="text"
-                        {...register("answer")}
+                        onBlur={(e) => setReply(e.target.value)}
                         className="border py-[6px] px-2 my-1 rounded-lg border-gray-400 w-full focus:outline-0"
                       />
                       <button
-                        type="submit"
+                        type="button"
+                        onClick={() => replaySubmit(id)}
                         className="shrink-0 h-14 w-14 bg-primary/10 border border-primary hover:bg-primary rounded-full transition-all  grid place-items-center text-primary hover:text-white"
                       >
-                        send
+                        <i class="fa-solid fa-paper-plane"></i>
                       </button>
                     </div>
-                  </form>
+                  )}
                 </div>
               ))}
             </div>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="flex gap-3 my-5">
-                <input
-                  placeholder="Ask a question..."
-                  type="text"
-                  {...register("question")}
-                  className="border py-[6px] px-2 my-1 rounded-lg border-gray-400 w-full focus:outline-0"
-                />
-                <button
-                  className="shrink-0 h-14 w-14 bg-primary/10 border border-primary hover:bg-primary rounded-full transition-all  grid place-items-center text-primary hover:text-white"
-                  type="submit"
-                >
-                  <i class="fa-solid fa-paper-plane"></i>
-                </button>
-              </div>
-            </form>
+
+            {user.role === "candidates" && (
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="flex gap-3 my-5">
+                  <input
+                    placeholder="Ask a question..."
+                    type="text"
+                    {...register("question")}
+                    className="border py-[6px] px-2 my-1 rounded-lg border-gray-400 w-full focus:outline-0"
+                  />
+                  <button
+                    className="shrink-0 h-14 w-14 bg-primary/10 border border-primary hover:bg-primary rounded-full transition-all  grid place-items-center text-primary hover:text-white"
+                    type="submit"
+                  >
+                    <i class="fa-solid fa-paper-plane"></i>
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       </div>
