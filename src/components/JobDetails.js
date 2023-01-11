@@ -1,10 +1,11 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useApplyMutation, useGetJobByIdQuery } from "../features/job/jobApi";
 import { useSelector } from "react-redux";
 
 const JobDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
   const [apply, { isSuccess }] = useApplyMutation();
 
@@ -30,6 +31,15 @@ const JobDetails = () => {
   console.log(applied);
 
   const handleApply = () => {
+    if (user.role === "employer") {
+      alert("Your are employer, Need candidate account for apply");
+      return;
+    }
+    if (user.role === "") {
+      navigate("/register");
+      return;
+    }
+
     const data = {
       userId: user._id,
       jobId: _id,
@@ -54,7 +64,7 @@ const JobDetails = () => {
               </button>
             ) : (
               <button
-                disabled={!user?.role}
+                // disabled={!user?.role}
                 onClick={handleApply}
                 className="btn"
               >

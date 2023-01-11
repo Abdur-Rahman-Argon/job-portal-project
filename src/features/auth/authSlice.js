@@ -54,8 +54,10 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     logout: (state, action) => {
-      state.user.email = "";
-      state.user.role = "";
+      state.user = {
+        email: "",
+        role: "",
+      };
       state.isLoading = false;
     },
     exitsUser: (state, action) => {

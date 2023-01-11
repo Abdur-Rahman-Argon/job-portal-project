@@ -10,6 +10,7 @@ import EmployFrom from "../components/EmployFrom";
 import Dashboard from "../layout/Dashboard/Dashboard";
 import AddJob from "../Pages/EmployDashboard/AddJob";
 import JobDetails from "../components/JobDetails";
+import AppliedJobs from "../Pages/CandidatesDashboard/AppliedJobs";
 
 const routes = createBrowserRouter([
   {
@@ -68,6 +69,14 @@ const routes = createBrowserRouter([
           </PrivetRoute>
         ),
         children: [
+          {
+            path: "applied-jobs",
+            element: (
+              <PrivetRoute>
+                <AppliedJobs />
+              </PrivetRoute>
+            ),
+          },
           {
             path: "add-jobs",
             element: (
