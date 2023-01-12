@@ -12,6 +12,9 @@ import AddJob from "../Pages/EmployDashboard/AddJob";
 import JobDetails from "../components/JobDetails";
 import AppliedJobs from "../Pages/CandidatesDashboard/AppliedJobs";
 import Jobs from "../Pages/Jobs";
+import EmployAllJobs from "../Pages/EmployDashboard/EmployAllJobs";
+import OpenJobs from "../Pages/EmployDashboard/OpenJobs";
+import ClosedJob from "../Pages/EmployDashboard/ClosedJob";
 
 const routes = createBrowserRouter([
   {
@@ -87,6 +90,30 @@ const routes = createBrowserRouter([
             element: (
               <PrivetRoute>
                 <AddJob />
+              </PrivetRoute>
+            ),
+          },
+          {
+            path: "my-all-jobs",
+            element: (
+              <PrivetRoute>
+                <EmployAllJobs />
+              </PrivetRoute>
+            ),
+          },
+          {
+            path: "open-jobs",
+            element: (
+              <PrivetRoute>
+                <OpenJobs />
+              </PrivetRoute>
+            ),
+          },
+          {
+            path: "closed-jobs",
+            element: (
+              <PrivetRoute>
+                <ClosedJob />
               </PrivetRoute>
             ),
           },

@@ -18,16 +18,16 @@ const SideNav = () => {
 
   const employerRoute = [
     {
-      name: "Add New Job",
+      name: "Add Job",
       path: "add-jobs",
     },
     {
-      name: "My All Jobs",
+      name: " All Jobs",
       path: "my-all-jobs",
     },
     {
-      name: "My Open Jobs",
-      path: "my-open-jobs",
+      name: " Open Jobs",
+      path: "open-jobs",
     },
     {
       name: "Closed Job",
