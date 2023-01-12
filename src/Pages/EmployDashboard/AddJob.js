@@ -42,15 +42,20 @@ const AddJob = () => {
     <div className="">
       <div className=" bg-slate-600 text-white py-2">
         <h1 className=" text-center font-bold  text-2xl my-2 "> ADD NEW JOB</h1>
-        <h1 className=" text-center font-semibold  text-lg ">
-          {" "}
+        <h1 className=" flex justify-center items-center gap-2 text-center font-semibold  text-base ">
           <Link to="/" className=" hover:text-emerald-500">
-            Go Home{" "}
+            Go Home
           </Link>
           <span>
-            <i class="fa-sharp fa-solid fa-angles-right"></i>
+            <i class="fa-sharp fa-solid fa-angles-right text-sm"></i>
+          </span>
+          <Link to="/dashboard" className=" hover:text-emerald-500">
+            DashBoard
+          </Link>
+          <span>
+            <i class="fa-sharp fa-solid fa-angles-right text-sm"></i>
           </span>{" "}
-          Add Jobs Page
+          <span>Add Jobs Page</span>
         </h1>
       </div>
       <div className="flex justify-center items-center overflow-auto p-10">

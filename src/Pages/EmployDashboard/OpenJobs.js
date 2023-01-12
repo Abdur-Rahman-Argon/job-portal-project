@@ -5,12 +5,12 @@ import {
   useGetEmployerJobQuery,
 } from "../../features/job/jobApi";
 import Loading from "../../shared/Loading";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const OpenJobs = () => {
   const { role, email } = useSelector((state) => state.auth.user);
   const { isLoading, data, isError, error } = useGetEmployerJobQuery(email);
-
+  const navigate = useNavigate();
   const [close] = useClosedJobMutation();
 
   if (isLoading) {
@@ -34,15 +34,20 @@ const OpenJobs = () => {
           {" "}
           NOW OPEN JOBS
         </h1>
-        <h1 className=" text-center font-semibold  text-lg ">
-          {" "}
+        <h1 className=" flex justify-center items-center gap-2 text-center font-semibold  text-base ">
           <Link to="/" className=" hover:text-emerald-500">
-            Go Home{" "}
+            Go Home
           </Link>
           <span>
-            <i class="fa-sharp fa-solid fa-angles-right"></i>
-          </span>{" "}
-          Open Jobs Page
+            <i class="fa-sharp fa-solid fa-angles-right text-sm"></i>
+          </span>
+          <Link to="/dashboard" className=" hover:text-emerald-500">
+            DashBoard
+          </Link>
+          <span>
+            <i class="fa-sharp fa-solid fa-angles-right text-sm"></i>
+          </span>
+          <span>Open Jobs Page</span>
         </h1>
       </div>
       {/* employer Job table  */}
@@ -73,8 +78,12 @@ const OpenJobs = () => {
                   </td>
                   <td className=" font-bold text-center">{job.status}</td>
                   <td className=" font-semibold text-center">
-                    <button className="btn btn-success">
-                      {" "}
+                    <button
+                      onClick={() =>
+                        navigate(`/dashboard/view-applicant/${job._id}`)
+                      }
+                      className="btn btn-success"
+                    >
                       see <i class="fa-solid fa-arrow-right mx-1"></i>
                     </button>
                   </td>

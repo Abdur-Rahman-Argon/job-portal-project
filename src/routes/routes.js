@@ -15,6 +15,7 @@ import Jobs from "../Pages/Jobs";
 import EmployAllJobs from "../Pages/EmployDashboard/EmployAllJobs";
 import OpenJobs from "../Pages/EmployDashboard/OpenJobs";
 import ClosedJob from "../Pages/EmployDashboard/ClosedJob";
+import ViewApplicants from "../Pages/EmployDashboard/ViewApplicants";
 
 const routes = createBrowserRouter([
   {
@@ -114,6 +115,14 @@ const routes = createBrowserRouter([
             element: (
               <PrivetRoute>
                 <ClosedJob />
+              </PrivetRoute>
+            ),
+          },
+          {
+            path: "view-applicant/:jodId",
+            element: (
+              <PrivetRoute>
+                <ViewApplicants />
               </PrivetRoute>
             ),
           },
