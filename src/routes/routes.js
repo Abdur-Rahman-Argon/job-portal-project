@@ -16,6 +16,8 @@ import EmployAllJobs from "../Pages/EmployDashboard/EmployAllJobs";
 import OpenJobs from "../Pages/EmployDashboard/OpenJobs";
 import ClosedJob from "../Pages/EmployDashboard/ClosedJob";
 import ViewApplicants from "../Pages/EmployDashboard/ViewApplicants";
+import ViewProfile from "../Pages/ViewProfile";
+import MessageBox from "../layout/Message/MessageBox";
 
 const routes = createBrowserRouter([
   {
@@ -37,6 +39,10 @@ const routes = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp />,
+      },
+      {
+        path: "/view-profile/:userId",
+        element: <ViewProfile />,
       },
       {
         path: "/register",
@@ -70,6 +76,19 @@ const routes = createBrowserRouter([
           </PrivetRoute>
         ),
       },
+
+      //message
+      {
+        path: "/message",
+        element: (
+          <PrivetRoute>
+            <MessageBox />
+          </PrivetRoute>
+        ),
+        children: [{}],
+      },
+
+      // dashboard
       {
         path: "/dashboard",
         element: (

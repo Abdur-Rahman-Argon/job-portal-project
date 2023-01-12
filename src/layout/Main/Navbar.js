@@ -37,9 +37,15 @@ const Navbar = () => {
       )}
 
       {email && role && (
-        <li>
-          <Link to="/dashboard">DashBoard</Link>
-        </li>
+        <>
+          {" "}
+          <li>
+            <Link to="/dashboard">DashBoard</Link>
+          </li>
+          <li>
+            <Link to="/message">Message</Link>
+          </li>
+        </>
       )}
 
       {email ? (

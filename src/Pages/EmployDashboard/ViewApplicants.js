@@ -1,9 +1,10 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useGetJobByIdQuery } from "../../features/job/jobApi";
 
 const ViewApplicants = () => {
   const { jodId } = useParams();
+  const navigate = useNavigate();
   const { data, isError, isLoading, error } = useGetJobByIdQuery(jodId);
 
   console.log(data);
@@ -90,9 +91,12 @@ const ViewApplicants = () => {
                     {app.time || "Time Not Show"}
                   </td>
                   <td className=" font-semibold text-center">
-                    <button className="btn btn-success">
+                    <Link
+                      to={`/view-profile/${app.id}`}
+                      className="btn btn-success"
+                    >
                       <i class="fa-regular fa-eye text-base"></i>
-                    </button>
+                    </Link>
                   </td>
                 </tr>
               ))}

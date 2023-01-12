@@ -17,6 +17,14 @@ const jobApi = apiSlice.injectEndpoints({
       providesTags: ["Jobs"],
     }),
 
+    //view user  by id
+    getViewUser: builder.query({
+      query: (id) => ({
+        url: `/view-user/${id}`,
+      }),
+      providesTags: ["Job"],
+    }),
+
     //job by id
     getJobById: builder.query({
       query: (id) => ({
@@ -91,4 +99,5 @@ export const {
   useCreateQueAnswerMutation,
   useGetEmployerJobQuery,
   useClosedJobMutation,
+  useGetViewUserQuery,
 } = jobApi;
