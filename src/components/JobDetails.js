@@ -8,6 +8,7 @@ import {
 } from "../features/job/jobApi";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { BsArrowReturnRight } from "react-icons/bs";
 
 const JobDetails = () => {
   const [reply, setReply] = useState();
@@ -163,7 +164,10 @@ const JobDetails = () => {
                   </p>
                   {reply?.map((item) => (
                     <p className="flex items-center gap-2 relative left-5">
-                      <i class="fa-solid fa-arrow-right"></i> {item}
+                      <span>
+                        <BsArrowReturnRight />
+                      </span>
+                      <span>{item}</span>
                     </p>
                   ))}
                   {user.role === "employer" && (

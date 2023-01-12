@@ -11,6 +11,7 @@ import Dashboard from "../layout/Dashboard/Dashboard";
 import AddJob from "../Pages/EmployDashboard/AddJob";
 import JobDetails from "../components/JobDetails";
 import AppliedJobs from "../Pages/CandidatesDashboard/AppliedJobs";
+import Jobs from "../Pages/Jobs";
 
 const routes = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const routes = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/jobs",
+        element: <Jobs />,
       },
       {
         path: "/login",

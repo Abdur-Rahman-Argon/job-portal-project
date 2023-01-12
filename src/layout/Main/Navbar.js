@@ -27,7 +27,7 @@ const Navbar = () => {
         <Link to="/">Home</Link>
       </li>
       <li>
-        <Link to="/">Jobs</Link>
+        <Link to="/jobs">Jobs</Link>
       </li>
 
       {email && !role && (
@@ -56,12 +56,12 @@ const Navbar = () => {
 
   return (
     <div>
-      <div className="navbar px-10  bg-emerald-300">
+      <div className="navbar px-10   bg-emerald-200">
         <div className="navbar-start">
           <Link to="/" href="/" className="btn btn-ghost normal-case text-lg">
             <div className=" flex items-center gap-[6px]  justify-center">
               <img src={logo} alt="" className=" w-7" />
-              <span className="mt-1 uppercase tittle text-yellow-500">
+              <span className="mt-1 uppercase tittle text-orange-500">
                 Job Point
               </span>
             </div>
