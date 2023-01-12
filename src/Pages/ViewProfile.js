@@ -1,10 +1,60 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGetViewUserQuery } from "../features/job/jobApi";
+import {
+  useCreateConversionMutation,
+  useGetConversionQuery,
+} from "../features/message/messageApi";
+import { useSelector } from "react-redux";
+import Loading from "../shared/Loading";
 
 const ViewProfile = () => {
   const { userId } = useParams();
+  const navigate = useNavigate();
+
+  const { _id, email, role } = useSelector((state) => state.auth.user);
   const { isLoading, data, isError } = useGetViewUserQuery(userId);
+
+  const {
+    isLoading: cLoading,
+    data: cData,
+    isError: cError,
+    error,
+  } = useGetConversionQuery(_id);
+
+  const [
+    conversation,
+    { isLoading: loading, isError: isCError, isSuccess, data: Cdata },
+  ] = useCreateConversionMutation();
+
+  if (
+    (!isError && isLoading) ||
+    (!isCError && loading) ||
+    (!cError && cLoading)
+  ) {
+    return <Loading />;
+  }
+
+  if (!isCError && !loading && isSuccess) {
+    console.log(Cdata);
+    navigate(`/messages/conversation/${Cdata.insertedId}`);
+  }
+
+  const existConversion = cData?.filter((con) =>
+    con.member.find((id) => id === data?.data?._id)
+  );
+  if (existConversion.length < 1) {
+  }
+  console.log("conversion", existConversion);
+
+  const handleCreateConversion = (id) => {
+    const cData = { senderId: _id, receiverId: id };
+    if (existConversion.length < 1) {
+      conversation(cData);
+    } else {
+      navigate(`/messages/conversation/${existConversion[0]._id}`);
+    }
+  };
 
   return (
     <div>
@@ -25,7 +75,10 @@ const ViewProfile = () => {
         </div>
         <div className=" divider"></div>
         <div className=" flex justify-around items-center gap-2">
-          <button class="border-2 font-medium py-[6px] rounded-lg border-emerald-500 bg-green-600 hover:bg-green-700  text-white  w-full ">
+          <button
+            onClick={() => handleCreateConversion(data.data._id)}
+            class="border-2 font-medium py-[6px] rounded-lg border-emerald-500 bg-green-600 hover:bg-green-700  text-white  w-full "
+          >
             <i class="fa-solid fa-paper-plane"></i> <span>Message</span>
           </button>
           <button class="border-2 font-medium py-[6px] hover:border-emerald-500  hover:bg-gray-200  text-black px-2 my-1 rounded-lg border-gray-400 w-full focus:outline-0">

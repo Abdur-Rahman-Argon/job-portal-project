@@ -18,6 +18,7 @@ import ClosedJob from "../Pages/EmployDashboard/ClosedJob";
 import ViewApplicants from "../Pages/EmployDashboard/ViewApplicants";
 import ViewProfile from "../Pages/ViewProfile";
 import MessageBox from "../layout/Message/MessageBox";
+import CreateMessage from "../layout/Message/CreateMessage";
 
 const routes = createBrowserRouter([
   {
@@ -79,13 +80,22 @@ const routes = createBrowserRouter([
 
       //message
       {
-        path: "/message",
+        path: "/messages",
         element: (
           <PrivetRoute>
             <MessageBox />
           </PrivetRoute>
         ),
-        children: [{}],
+        children: [
+          {
+            path: "conversation/:conversationId",
+            element: (
+              <PrivetRoute>
+                <CreateMessage />
+              </PrivetRoute>
+            ),
+          },
+        ],
       },
 
       // dashboard
