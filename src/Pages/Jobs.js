@@ -72,7 +72,7 @@ const Jobs = () => {
               <div class=" flex-1   md:ml-3  w-full  py-4 px-2">
                 <button
                   type="submit"
-                  class="border-2 py-[6px] hover:border-emerald-500 hover:bg-white bg-green-600 text-white hover:text-black px-2 my-1 rounded-lg border-gray-400 w-full focus:outline-0"
+                  class="border-2 font-medium py-[6px] hover:border-emerald-500 hover:bg-white bg-green-600 text-white hover:text-black px-2 my-1 rounded-lg border-gray-400 w-full focus:outline-0"
                 >
                   Search
                 </button>
