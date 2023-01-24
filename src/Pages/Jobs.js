@@ -12,13 +12,14 @@ const Jobs = () => {
           {" "}
           SHOW ALL JOBS
         </h1>
-        <h1 className=" text-center font-semibold  text-lg ">
-          {" "}
-          <Link to="/">Go Home </Link>
+        <h1 className=" flex justify-center items-center gap-2 text-center font-semibold  text-base ">
+          <Link to="/" className=" hover:text-emerald-500">
+            Go Home
+          </Link>
           <span>
-            <i class="fa-sharp fa-solid fa-angles-right"></i>
-          </span>{" "}
-          Jobs
+            <i class="fa-sharp fa-solid fa-angles-right text-sm"></i>
+          </span>
+          <span>All Jobs</span>
         </h1>
       </div>
       <div>

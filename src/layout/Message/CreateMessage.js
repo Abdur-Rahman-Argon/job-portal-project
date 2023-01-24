@@ -30,7 +30,7 @@ const CreateMessage = (data) => {
   return (
     <div className="  h-screen  w-full">
       {/* Message Show */}
-      <div className="h-screen pb-20 overflow-y-scroll px-5">
+      <div className="h-screen pb-20 overflow-y-scroll mt-3 px-5">
         {myMessage?.map((message) => (
           <div ref={scrollRef}>
             <MessageItems key={message._id} message={message}></MessageItems>
@@ -38,7 +38,7 @@ const CreateMessage = (data) => {
         ))}
       </div>
 
-      <div className=" w-10/12 bg-white fixed bottom-0 ">
+      <div className=" w-9/12 bg-white fixed bottom-0 ">
         <MessageField conversationId={conversationId} />
       </div>
     </div>

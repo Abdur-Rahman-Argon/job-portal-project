@@ -19,6 +19,7 @@ import ViewApplicants from "../Pages/EmployDashboard/ViewApplicants";
 import ViewProfile from "../Pages/ViewProfile";
 import MessageBox from "../layout/Message/MessageBox";
 import CreateMessage from "../layout/Message/CreateMessage";
+import DashboardDemo from "../Pages/CandidatesDashboard/DashboardDemo";
 
 const routes = createBrowserRouter([
   {
@@ -107,6 +108,14 @@ const routes = createBrowserRouter([
           </PrivetRoute>
         ),
         children: [
+          {
+            path: "/dashboard",
+            element: (
+              <PrivetRoute>
+                <DashboardDemo />
+              </PrivetRoute>
+            ),
+          },
           {
             path: "applied-jobs",
             element: (

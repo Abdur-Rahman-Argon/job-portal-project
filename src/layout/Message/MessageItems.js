@@ -12,7 +12,7 @@ const MessageItems = ({ message }) => {
   return (
     <div>
       <div
-        className={` w-8/12 my-4 ${owner ? "mr-auto" : "ml-auto"}  flex ${
+        className={` w-8/12 my-1 ${owner ? "mr-auto" : "ml-auto"}  flex ${
           owner ? " flex-row" : " flex-row-reverse"
         } justify-start gap-1  items-start`}
       >

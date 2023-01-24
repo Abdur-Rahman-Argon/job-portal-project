@@ -13,7 +13,7 @@ const Home = () => {
       </div>
 
       {/*  job filtering */}
-      <div class="my-8 flex justify-around items-center ">
+      {/* <div class="my-8 flex justify-around items-center ">
         <div>
           <ul class=" flex justify-center items-center ">
             <li class="btn "> Latest Jobs </li>
@@ -35,7 +35,7 @@ const Home = () => {
             <li class="btn "> Internship </li>
           </ul>
         </div>
-      </div>
+      </div> */}
 
       {/*  job Showa */}
       <div class="">
